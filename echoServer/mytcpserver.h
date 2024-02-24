@@ -21,13 +21,13 @@ public:
 #include <QStringList>
 #include <QList>
 #include <QCoreApplication>
-
+#include <QMap>
+#include <QUuid>
 #include "curve.h"
 #include "functions.h"
 #include "database.h"
 #include "kuznechik.h"
 #include "streebog.h"
-
 #include <boost/multiprecision/cpp_int.hpp>
 
 using namespace boost::multiprecision;
@@ -45,9 +45,7 @@ public slots:
 private:
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
-    /**
-     * @brief список подключенний, сокетов
-     */
+    QMap<QTcpSocket*, QString> sockets;
     QList<QTcpSocket*> list;
     //int server_status;
 };

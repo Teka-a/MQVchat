@@ -28,11 +28,14 @@ Database * Database::getInstance()
 Database::Database()
 {
     qDebug() << "constructor";
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("");
+    database = QSqlDatabase::addDatabase("QPSQL");
+    database.setDatabaseName("secretchat");
+    database.setUserName("server");
+    database.setPassword("S!Pk1_3rriL");
 
-    if (!database.open())
-        qDebug() << "nope";
+    if (!database.open()){
+        qDebug() << "nope" << database.lastError().text();
+    }
     else
         qDebug() << "ok";
 

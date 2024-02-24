@@ -14,7 +14,10 @@ void S(bytesVector &vec);
 void P(bytesVector &vec);
 void L(bytesVector &vec);
 void addInRingOFResidues(const bytesVector &vec1, const bytesVector &vec2, bytesVector &result);
+QString padding(QString &textBin);
 
-QString getHash512(const QString &text);
+bytesVector g(bytesVector h, bytesVector m, bytesVector N);
+
+QString getHash512(QString &text);
 
 #endif // STREEBOG_H

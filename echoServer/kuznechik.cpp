@@ -147,5 +147,6 @@ QString decryptBlock(QString &text, QString &key)
 
     QString plaintext = convertBytesToHexStr(plainBytes);
     return plaintext;
-
 }
+
+

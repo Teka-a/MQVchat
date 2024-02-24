@@ -28,17 +28,15 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
         Curve *curveSecp256k1 = Curve::getInstance();
         Database *db = Database::getInstance();
         Point k = curveSecp256k1->doublePoint();
-        qDebug() << "Here double: " << QString::fromStdString(k.x.str()) << " " << QString::fromStdString(k.y.str());
-        Point t = curveSecp256k1->addPoint(k);
-        Point i = curveSecp256k1->countComposition(7);
-        qDebug() << "Here add: " << QString::fromStdString(t.x.str()) << " " << QString::fromStdString(t.y.str());
-        qDebug() << "Here mullt: " << QString::fromStdString(i.x.str()) << " " << QString::fromStdString(i.y.str());
-        QString key = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef";
-        QString plaintext = "1122334455667700ffeeddccbbaa9988";
-        QString ciphertext = "7f679d90bebc24305a468d42b9d4edcd";
-        qDebug() << "encrypt: " << plaintext << " " << encryptBlock(plaintext, key);
-        qDebug() << "decrypt: " << ciphertext << " "<< decryptBlock(ciphertext, key);
-        qDebug() << "Hash: " << getHash512("hehe");
+        QString uuid = QUuid::createUuid().toString();
+        qDebug() << "jj 50707738352B416B63737070726577393034696E7676656130686A706B653638" << uuid;
+
+        //qDebug() << "Here double: " << QString::fromStdString(k.x.str()) << " " << QString::fromStdString(k.y.str());
+        //Point i = curveSecp256k1->countComposition(83666);
+        //qDebug() << "Here mullt: " << QString::fromStdString(i.x.str()) << " " << QString::fromStdString(i.y.str());
+        //QString m = "323130393837363534333231303938373635343332313039383736353433323130393837363534333231303938373635343332313039383736353433323130";
+
+        //qDebug() << getHash512(m);
     }
 }
 
@@ -48,9 +46,9 @@ void MyTcpServer::slotNewConnection()
 {
     QTcpSocket* mTcpSocket = mTcpServer->nextPendingConnection();
     list.push_back(mTcpSocket);
-
+    sockets.insert(mTcpSocket, "");
     qDebug() << mTcpSocket;
-        //mTcpSocket->write("Hello, World!!! I am echo server!\r\n");
+    //mTcpSocket->write("Hello, World!!! I am echo server!\r\n");
     connect(mTcpSocket, &QTcpSocket::readyRead,this,&MyTcpServer::slotServerRead);
     connect(mTcpSocket,&QTcpSocket::disconnected,this,&MyTcpServer::slotClientDisconnected);
 
@@ -61,6 +59,7 @@ void MyTcpServer::slotServerRead()
 {
     Functions f;
     QTcpSocket* mTcpSocket = (QTcpSocket*)sender();
+    qDebug() << "info" << mTcpSocket;
     QString res = "";
     while (mTcpSocket->bytesAvailable()>0) {
         QByteArray array = mTcpSocket->readAll();

@@ -41,7 +41,10 @@ class Curve : public QObject
         static Point G;
         static Point O;
         uint256_t getInverseElement(uint256_t& x);
+        const uint256_t N {"115792089237316195423570985008687907852837564279074904382605163141518161494337"};
         bool isInfinityPoint(Point P);
+        QString numIntoBinStr(uint1024_t &num);
+
     protected:
          Curve(QObject *parent = nullptr);
         ~Curve();
@@ -51,13 +54,13 @@ class Curve : public QObject
         friend class CurveDestroyer;
 
     public:
-
+        QString getN();
         Point addPoint(Point P, Point Q = G);
         Point doublePoint(Point P = G);
         static Curve* getInstance();
         QString getModule();
         bool isPointValid(Point P);
-        Point countComposition(long long k, Point P = G);
+        Point countComposition(uint1024_t k, Point P = G);
 };
 
 #endif // CURVE_H
